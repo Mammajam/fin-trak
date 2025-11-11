@@ -52,7 +52,7 @@ export default function Home() {
             <div className="space-y-5">
               <h1 className="text-4xl font-semibold leading-tight text-slate-50 sm:text-5xl lg:text-6xl">
                 Fin-Trak unifies API-first identity and transaction screening.
-              </h1>
+          </h1>
               <p className="max-w-2xl text-lg leading-8 text-slate-300">
                 Fin-Trak centralizes automated KYC, AML, and fraud controls into a
                 single workflow. Orchestrate customer onboarding, ongoing monitoring,
@@ -114,8 +114,8 @@ export default function Home() {
                 </h2>
                 <p className="text-sm leading-6 text-slate-300">
                   {feature.description}
-                </p>
-              </div>
+          </p>
+        </div>
               <ul className="mt-2 space-y-2 text-sm text-slate-300">
                 {feature.highlights.map((item) => (
                   <li
@@ -150,6 +150,6 @@ export default function Home() {
           </Link>
         </footer>
       </section>
-    </main>
+      </main>
   );
 }

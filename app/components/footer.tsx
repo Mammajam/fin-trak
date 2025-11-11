@@ -81,7 +81,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 xl:grid-cols-4">
           {footerSections.map((section) => (
             <div key={section.title} className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
@@ -105,9 +105,9 @@ export function Footer() {
       </div>
 
       <div className="border-t border-slate-800/60 bg-slate-950/80">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 py-6 text-center text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:text-left">
           <p>© {new Date().getFullYear()} Fin-Trak Technologies. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-end">
             <Link href="/legal/privacy" className="transition hover:text-emerald-200">
               Privacy Policy
             </Link>
