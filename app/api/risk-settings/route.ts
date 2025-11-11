@@ -5,6 +5,7 @@ import type {
   JurisdictionRisk,
   RiskLevel,
   RiskRule,
+  RiskSettings,
   RiskSettingsPatch,
 } from "@/types/kyc";
 
@@ -93,30 +94,37 @@ const parseRiskSettingsPatch = async (
     updatedBy: (payload as { updatedBy: string }).updatedBy,
   };
 
+  const currentSettings = getRiskSettings();
+
   if ("transactionThresholds" in payload) {
     const thresholds = (payload as { transactionThresholds?: unknown })
       .transactionThresholds;
     if (thresholds && typeof thresholds === "object") {
       const draft = thresholds as Record<string, unknown>;
-      patch.transactionThresholds = {};
+      const thresholdsPatch: Partial<
+        RiskSettings["transactionThresholds"]
+      > = {};
 
       const highValue = toNumber(draft.highValueUsd);
       if (typeof highValue === "number") {
-        patch.transactionThresholds.highValueUsd = highValue;
+        thresholdsPatch.highValueUsd = highValue;
       }
 
       const manualReview = toNumber(draft.manualReviewUsd);
       if (typeof manualReview === "number") {
-        patch.transactionThresholds.manualReviewUsd = manualReview;
+        thresholdsPatch.manualReviewUsd = manualReview;
       }
 
       const dailyVolume = toNumber(draft.dailyVolumeUsd);
       if (typeof dailyVolume === "number") {
-        patch.transactionThresholds.dailyVolumeUsd = dailyVolume;
+        thresholdsPatch.dailyVolumeUsd = dailyVolume;
       }
 
-      if (Object.keys(patch.transactionThresholds).length === 0) {
-        delete patch.transactionThresholds;
+      if (Object.keys(thresholdsPatch).length > 0) {
+        patch.transactionThresholds = {
+          ...currentSettings.transactionThresholds,
+          ...thresholdsPatch,
+        };
       }
     }
   }
@@ -126,13 +134,13 @@ const parseRiskSettingsPatch = async (
       .screeningParameters;
     if (parameters && typeof parameters === "object") {
       const draft = parameters as Record<string, unknown>;
-      patch.screeningParameters = {};
+      const screeningPatch: Partial<RiskSettings["screeningParameters"]> = {};
 
       if (
         typeof draft.pepSensitivity === "string" &&
         pepSensitivityOptions.includes(draft.pepSensitivity as typeof pepSensitivityOptions[number])
       ) {
-        patch.screeningParameters.pepSensitivity = draft.pepSensitivity as
+        screeningPatch.pepSensitivity = draft.pepSensitivity as
           | "standard"
           | "enhanced";
       }
@@ -141,23 +149,25 @@ const parseRiskSettingsPatch = async (
         typeof draft.adverseMediaCoverage === "string" &&
         adverseMediaOptions.includes(draft.adverseMediaCoverage as typeof adverseMediaOptions[number])
       ) {
-        patch.screeningParameters.adverseMediaCoverage =
+        screeningPatch.adverseMediaCoverage =
           draft.adverseMediaCoverage as "basic" | "expanded";
       }
 
       const sanctionsAutoBlock = toNumber(draft.sanctionsAutoBlockScore);
       if (typeof sanctionsAutoBlock === "number") {
-        patch.screeningParameters.sanctionsAutoBlockScore = sanctionsAutoBlock;
+        screeningPatch.sanctionsAutoBlockScore = sanctionsAutoBlock;
       }
 
       const transactionAutoBlock = toNumber(draft.transactionAutoBlockScore);
       if (typeof transactionAutoBlock === "number") {
-        patch.screeningParameters.transactionAutoBlockScore =
-          transactionAutoBlock;
+        screeningPatch.transactionAutoBlockScore = transactionAutoBlock;
       }
 
-      if (Object.keys(patch.screeningParameters).length === 0) {
-        delete patch.screeningParameters;
+      if (Object.keys(screeningPatch).length > 0) {
+        patch.screeningParameters = {
+          ...currentSettings.screeningParameters,
+          ...screeningPatch,
+        };
       }
     }
   }

@@ -22,38 +22,41 @@ const parseHits = (value: unknown): WatchlistHit[] | undefined => {
   if (!value) return undefined;
   if (!Array.isArray(value)) return undefined;
 
-  return value
-    .map((entry) => {
-      if (!entry || typeof entry !== "object") {
-        return undefined;
-      }
-      const hit = entry as Partial<WatchlistHit>;
-      if (
-        !hit.id ||
-        !hit.list ||
-        !hit.matchName ||
-        !hit.category ||
-        !hit.risk ||
-        typeof hit.id !== "string" ||
-        typeof hit.list !== "string" ||
-        typeof hit.matchName !== "string" ||
-        typeof hit.category !== "string" ||
-        typeof hit.risk !== "string"
-      ) {
-        return undefined;
-      }
+  const hits: WatchlistHit[] = [];
 
-      return {
-        id: hit.id,
-        list: hit.list,
-        matchName: hit.matchName,
-        category: hit.category,
-        risk: hit.risk,
-        confidence: typeof hit.confidence === "number" ? hit.confidence : 0,
-        url: hit.url,
-      } satisfies WatchlistHit;
-    })
-    .filter((entry): entry is WatchlistHit => Boolean(entry));
+  for (const entry of value) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+
+    const hit = entry as Partial<WatchlistHit>;
+    if (
+      !hit.id ||
+      !hit.list ||
+      !hit.matchName ||
+      !hit.category ||
+      !hit.risk ||
+      typeof hit.id !== "string" ||
+      typeof hit.list !== "string" ||
+      typeof hit.matchName !== "string" ||
+      typeof hit.category !== "string" ||
+      typeof hit.risk !== "string"
+    ) {
+      continue;
+    }
+
+    hits.push({
+      id: hit.id,
+      list: hit.list,
+      matchName: hit.matchName,
+      category: hit.category,
+      risk: hit.risk,
+      confidence: typeof hit.confidence === "number" ? hit.confidence : 0,
+      url: hit.url,
+    });
+  }
+
+  return hits.length > 0 ? hits : undefined;
 };
 
 const parseScreeningPayload = async (
@@ -63,7 +66,11 @@ const parseScreeningPayload = async (
 
   const { type, runBy, status, riskScore } = payload ?? {};
 
-  if (!type || typeof type !== "string" || !screeningTypes.includes(type)) {
+  if (
+    !type ||
+    typeof type !== "string" ||
+    !screeningTypes.includes(type as ScreeningType)
+  ) {
     return undefined;
   }
 
@@ -84,9 +91,9 @@ const parseScreeningPayload = async (
   }
 
   const screening: NewScreeningInput = {
-    type,
+    type: type as ScreeningType,
     runBy,
-    status,
+    status: status as DecisionStatus,
     riskScore,
     notes: typeof payload.notes === "string" ? payload.notes : undefined,
     hits: parseHits(payload.hits),
@@ -101,13 +108,14 @@ const parseScreeningPayload = async (
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const snapshot = getCustomerSnapshot(params.id);
+  const { id } = await params;
+  const snapshot = getCustomerSnapshot(id);
 
   if (!snapshot) {
     return NextResponse.json(
-      { error: `Customer ${params.id} was not found.` },
+      { error: `Customer ${id} was not found.` },
       { status: 404 },
     );
   }
@@ -117,8 +125,9 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
     const screening = await parseScreeningPayload(request);
     if (!screening) {
@@ -131,14 +140,14 @@ export async function POST(
       );
     }
 
-    const result = recordScreening(params.id, screening);
+    const result = recordScreening(id, screening);
     return NextResponse.json({ data: result }, { status: 201 });
   } catch (error) {
     if (error instanceof Error && error.message.includes("does not exist")) {
       return NextResponse.json({ error: error.message }, { status: 404 });
     }
 
-    console.error(`Failed to record screening for customer ${params.id}`, error);
+    console.error(`Failed to record screening for customer ${id}`, error);
     return NextResponse.json(
       { error: "Unable to record screening result." },
       { status: 500 },

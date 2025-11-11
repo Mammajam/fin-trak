@@ -111,8 +111,8 @@ const parseTransactionPayload = async (
     currency,
     counterparty,
     counterpartyCountry,
-    channel,
-    direction,
+    channel: channel as TransactionChannel,
+    direction: direction as TransactionDirection,
     reference:
       typeof payload.reference === "string" ? payload.reference : undefined,
     occurredAt:
@@ -125,24 +125,26 @@ const parseTransactionPayload = async (
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const customer = getCustomerById(params.id);
+  const { id } = await params;
+  const customer = getCustomerById(id);
   if (!customer) {
     return NextResponse.json(
-      { error: `Customer ${params.id} was not found.` },
+      { error: `Customer ${id} was not found.` },
       { status: 404 },
     );
   }
 
-  const transactions = getCustomerTransactions(params.id);
+  const transactions = getCustomerTransactions(id);
   return NextResponse.json({ data: transactions }, { status: 200 });
 }
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const { id } = await params;
   try {
     const payload = await parseTransactionPayload(request);
     if (!payload) {
@@ -155,7 +157,7 @@ export async function POST(
       );
     }
 
-    const transaction = appendTransaction(params.id, payload);
+    const transaction = appendTransaction(id, payload);
     return NextResponse.json({ data: transaction }, { status: 201 });
   } catch (error) {
     if (error instanceof Error && error.message.includes("does not exist")) {
@@ -163,7 +165,7 @@ export async function POST(
     }
 
     console.error(
-      `Failed to append transaction for customer ${params.id}`,
+      `Failed to append transaction for customer ${id}`,
       error,
     );
     return NextResponse.json(
