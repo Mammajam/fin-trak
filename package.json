@@ -1,7 +1,9 @@
 {
   "name": "fin-trak",
+  "displayName": "Fin-Trak",
   "version": "0.1.0",
   "private": true,
+  "description": "Fin-Trak is an API-first RegTech platform for identity, KYC/AML, and transaction screening.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
