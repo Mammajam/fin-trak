@@ -40,10 +40,10 @@ export default function WebhooksPage() {
         title="Receive Fin-Trak updates in real time."
         description="Subscribe to webhook events to keep downstream systems such as case managers, CRMs, and data warehouses synchronized with Fin-Trak activity."
       >
-        <ul className="space-y-2 text-sm text-slate-300">
+        <ul className="space-y-2 text-sm text-foreground/80">
           {deliveryGuidelines.map((tip) => (
             <li key={tip} className="flex items-start gap-3">
-              <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="mt-1 h-2 w-2 rounded-full bg-accent" />
               <span>{tip}</span>
             </li>
           ))}

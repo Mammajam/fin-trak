@@ -63,8 +63,8 @@ export default function ContactPage() {
         title="Connect with Fin-Trak teams."
         description="Whether you are designing a compliance program, scaling globally, or need engineering support, Fin-Trak teams are ready to help."
       >
-        <p className="text-sm text-slate-300">
-          Typical response time: <span className="text-emerald-200">under 12 hours</span>{" "}
+        <p className="text-sm text-foreground/80">
+          Typical response time: <span className="text-accent">under 12 hours</span>{" "}
           during business days.
         </p>
       </PageHero>

@@ -63,65 +63,65 @@ export function QuickTransactionForm({ customerId }: QuickTransactionFormProps) 
   return (
     <form
       onSubmit={submit}
-      className="space-y-4 rounded-3xl border border-slate-800/60 bg-slate-900/60 p-5"
+      className="space-y-4 rounded-3xl border border-border bg-card p-5"
     >
       <div>
-        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
           Quick Transaction Test
         </h3>
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-muted">
           Inject a synthetic transaction into the mock store to exercise Fin-Trak
           API endpoints.
         </p>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Amount (USD)
           <input
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
             placeholder="5000"
             inputMode="decimal"
           />
         </label>
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Currency
           <input
             value={currency}
             onChange={(event) => setCurrency(event.target.value.toUpperCase())}
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
             placeholder="USD"
             maxLength={3}
           />
         </label>
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Counterparty
           <input
             value={counterparty}
             onChange={(event) => setCounterparty(event.target.value)}
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
             placeholder="Company name"
           />
         </label>
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Counterparty Country
           <input
             value={counterpartyCountry}
             onChange={(event) =>
               setCounterpartyCountry(event.target.value.toUpperCase())
             }
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
             placeholder="US"
             maxLength={3}
           />
         </label>
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Channel
           <select
             value={channel}
             onChange={(event) => setChannel(event.target.value as TransactionChannel)}
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
           >
             {channels.map((option) => (
               <option key={option} value={option}>
@@ -130,14 +130,14 @@ export function QuickTransactionForm({ customerId }: QuickTransactionFormProps) 
             ))}
           </select>
         </label>
-        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <label className="space-y-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           Direction
           <select
             value={direction}
             onChange={(event) =>
               setDirection(event.target.value as TransactionDirection)
             }
-            className="w-full rounded-2xl border border-slate-800/60 bg-slate-950/60 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-emerald-400/80"
+            className="w-full rounded-2xl border border-border bg-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-accent/80"
           >
             {directions.map((option) => (
               <option key={option} value={option}>
@@ -151,11 +151,11 @@ export function QuickTransactionForm({ customerId }: QuickTransactionFormProps) 
         <p className="text-xs font-semibold text-rose-200">{error}</p>
       ) : null}
       {success ? (
-        <p className="text-xs font-semibold text-emerald-200">{success}</p>
+        <p className="text-xs font-semibold text-accent">{success}</p>
       ) : null}
       <button
         type="submit"
-        className="inline-flex h-11 w-full items-center justify-center rounded-full border border-emerald-400/70 bg-emerald-500/10 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-100 transition hover:bg-emerald-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-300"
+        className="inline-flex h-11 w-full items-center justify-center rounded-full border border-accent/70 bg-accent/10 text-sm font-semibold uppercase tracking-[0.18em] text-accent transition hover:bg-accent/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         disabled={isPending}
       >
         {isPending ? "Recording..." : "Create Transaction"}

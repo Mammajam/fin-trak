@@ -50,10 +50,10 @@ export default function DataModelPage() {
         title="Understand Fin-Trak entities."
         description="Design integrations or warehouse pipelines backed by Fin-Trak's canonical data contracts."
       >
-        <ul className="space-y-2 text-sm text-slate-300">
+        <ul className="space-y-2 text-sm text-foreground/80">
           {modellingNotes.map((note) => (
             <li key={note} className="flex items-start gap-3">
-              <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="mt-1 h-2 w-2 rounded-full bg-accent" />
               <span>{note}</span>
             </li>
           ))}

@@ -67,13 +67,13 @@ export default function ApiOverviewPage() {
           <>
             <Link
               href="https://api.fin-trak.io/docs"
-              className="rounded-full border border-emerald-400/60 bg-emerald-500/10 px-4 py-2 text-emerald-100 hover:bg-emerald-500/20"
+              className="rounded-full border border-accent/60 bg-accent/10 px-4 py-2 text-accent hover:bg-accent/20"
             >
               API Explorer
             </Link>
             <Link
               href="/docs/webhooks"
-              className="rounded-full border border-slate-800/60 px-4 py-2 text-slate-200 hover:border-emerald-400/60 hover:text-emerald-100"
+              className="rounded-full border border-border px-4 py-2 text-foreground hover:border-accent/60 hover:text-accent"
             >
               Webhook events
             </Link>
@@ -81,7 +81,7 @@ export default function ApiOverviewPage() {
         }
       >
         <p>
-          Base URL: <code className="rounded bg-slate-900/80 px-2 py-1">https://api.fin-trak.io/v1</code>
+          Base URL: <code className="rounded bg-surface px-2 py-1">https://api.fin-trak.io/v1</code>
         </p>
       </PageHero>
 

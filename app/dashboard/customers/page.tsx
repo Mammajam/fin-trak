@@ -25,23 +25,23 @@ export default async function CustomersPage() {
 
   return (
     <div className="space-y-8">
-      <header className="border-b border-slate-800/70 pb-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200">
+      <header className="border-b border-border pb-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-accent">
           Customers
         </p>
         <div className="mt-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <h1 className="text-3xl font-semibold text-slate-50">
+            <h1 className="text-3xl font-semibold text-foreground">
               Customer screenings & monitoring
             </h1>
-            <p className="mt-2 text-sm leading-6 text-slate-300">
+            <p className="mt-2 text-sm leading-6 text-foreground/80">
               Review onboarding status, risk posture, and alert load for every
               customer. Upgrade to the API to automate case routing and analyst SLA
               tracking.
             </p>
           </div>
-          <div className="rounded-3xl border border-slate-800/60 bg-slate-900/50 px-5 py-4 text-xs text-slate-400">
-            <p className="font-semibold uppercase tracking-[0.18em] text-emerald-200">
+          <div className="rounded-3xl border border-border bg-card px-5 py-4 text-xs text-muted">
+            <p className="font-semibold uppercase tracking-[0.18em] text-accent">
               Snapshot
             </p>
             <p>Active records: {numberFormatter.format(customers.length)}</p>
@@ -65,32 +65,32 @@ export default async function CustomersPage() {
         </div>
       </header>
 
-      <section className="overflow-hidden rounded-3xl border border-slate-800/60">
-        <div className="grid grid-cols-[1.6fr,0.9fr,0.7fr,0.7fr,0.7fr] gap-6 border-b border-slate-800/60 bg-slate-900/70 px-6 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+      <section className="overflow-hidden rounded-3xl border border-border">
+        <div className="grid grid-cols-[1.6fr,0.9fr,0.7fr,0.7fr,0.7fr] gap-6 border-b border-border bg-surface px-6 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
           <span>Customer</span>
           <span>Risk</span>
           <span>KYC Status</span>
           <span>Alerts</span>
           <span>30d Volume</span>
         </div>
-        <div className="divide-y divide-slate-800/60">
+        <div className="divide-y divide-border">
           {customers.map((customer: CustomerListEntry) => (
             <div
               key={customer.id}
-              className="grid grid-cols-[1.6fr,0.9fr,0.7fr,0.7fr,0.7fr] items-center gap-6 px-6 py-5 text-sm transition hover:bg-slate-900/60"
+              className="grid grid-cols-[1.6fr,0.9fr,0.7fr,0.7fr,0.7fr] items-center gap-6 px-6 py-5 text-sm transition hover:bg-surface"
             >
               <div className="space-y-1 text-sm">
                 <Link
                   href={`/dashboard/customers/${customer.id}`}
-                  className="text-base font-semibold text-slate-100 transition hover:text-emerald-200"
+                  className="text-base font-semibold text-foreground transition hover:text-accent"
                 >
                   {customer.fullName}
                 </Link>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-muted">
                   <span>{customer.referenceId}</span> ·{" "}
                   <span>{customer.jurisdiction}</span>
                 </div>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-muted">
                   Last screened: {formatDate(customer.lastScreenedAt)}
                 </div>
               </div>
@@ -100,16 +100,16 @@ export default async function CustomersPage() {
               <div>
                 <StatusBadge status={customer.kycStatus} />
               </div>
-              <div className="text-sm text-slate-200">
+              <div className="text-sm text-foreground">
                 {customer.outstandingAlerts > 0 ? (
                   <span className="font-semibold text-amber-200">
                     {customer.outstandingAlerts} open
                   </span>
                 ) : (
-                  <span className="text-slate-400">None</span>
+                  <span className="text-muted">None</span>
                 )}
               </div>
-              <div className="text-sm font-semibold text-slate-200">
+              <div className="text-sm font-semibold text-foreground">
                 {moneyFormatter.format(customer.totalVolume30d)}
               </div>
             </div>

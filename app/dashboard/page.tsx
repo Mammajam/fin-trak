@@ -56,20 +56,20 @@ export default async function DashboardOverviewPage() {
 
   return (
     <div className="space-y-12">
-      <header className="flex flex-col gap-3 border-b border-slate-800/70 pb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-200">
+      <header className="flex flex-col gap-3 border-b border-border pb-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-accent">
           Overview
         </p>
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold text-slate-50">
+          <h1 className="text-3xl font-semibold text-foreground">
             Live screening operations
           </h1>
-          <p className="text-sm leading-6 text-slate-300">
+          <p className="text-sm leading-6 text-foreground/80">
             Monitor customer risk posture, outstanding escalations, and the
             ruleset driving real-time transaction decisions.
           </p>
         </div>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-muted">
           Last synced:{" "}
           {new Date(snapshot.metrics.lastUpdated).toLocaleString("en-US", {
             hour: "2-digit",
@@ -81,7 +81,7 @@ export default async function DashboardOverviewPage() {
       </header>
 
       <section>
-        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
           Compliance Health
         </h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -101,12 +101,12 @@ export default async function DashboardOverviewPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.35fr,0.65fr]">
-        <div className="rounded-3xl border border-slate-800/60 bg-slate-900/60 p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
               Risk Trend (10-day)
             </h2>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-muted">
               Peak index: {numberFormatter.format(trendMax)}
             </span>
           </div>
@@ -118,16 +118,16 @@ export default async function DashboardOverviewPage() {
                   key={point.date}
                   className="flex w-12 flex-col items-center gap-2"
                 >
-                  <div className="flex h-40 w-full items-end rounded-full bg-slate-900/70">
+                  <div className="flex h-40 w-full items-end rounded-full bg-surface">
                     <div
-                      className="w-full rounded-full bg-gradient-to-t from-emerald-500/90 via-emerald-400/80 to-teal-300/70 shadow-[0_12px_35px_-16px_rgba(45,212,191,0.65)] transition will-change-transform hover:scale-[1.02]"
+                      className="w-full rounded-full bg-gradient-to-t from-accent/90 via-accent/80 to-teal-300/70 shadow-[0_12px_35px_-16px_rgba(5,150,105,0.4)] [data-theme='dark']:shadow-[0_12px_35px_-16px_rgba(45,212,191,0.65)] transition will-change-transform hover:scale-[1.02]"
                       style={{ height }}
                     />
                   </div>
-                  <span className="text-xs font-medium text-slate-400">
+                  <span className="text-xs font-medium text-muted">
                     {point.label}
                   </span>
-                  <span className="text-xs font-semibold text-slate-200">
+                  <span className="text-xs font-semibold text-foreground">
                     {point.value}
                   </span>
                 </div>
@@ -135,23 +135,23 @@ export default async function DashboardOverviewPage() {
             })}
           </div>
         </div>
-        <div className="rounded-3xl border border-slate-800/60 bg-slate-900/60 p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
             Top Jurisdictions
           </h2>
           <ul className="mt-4 space-y-3 text-sm">
             {snapshot.topJurisdictions.map((item) => (
               <li
                 key={item.isoCode}
-                className="flex items-center justify-between rounded-2xl border border-slate-800/60 bg-slate-950/40 px-4 py-3"
+                className="flex items-center justify-between rounded-2xl border border-border bg-surface px-4 py-3"
               >
                 <div className="flex flex-col gap-1">
-                  <span className="font-semibold text-slate-100">
+                  <span className="font-semibold text-foreground">
                     {item.country}
                   </span>
                   <RiskBadge level={item.risk} />
                 </div>
-                <span className="text-base font-semibold text-slate-200">
+                <span className="text-base font-semibold text-foreground">
                   {item.customers}
                 </span>
               </li>
@@ -161,36 +161,36 @@ export default async function DashboardOverviewPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
-        <div className="rounded-3xl border border-slate-800/60 bg-slate-900/60 p-6">
+        <div className="rounded-3xl border border-border bg-card p-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
               Escalation Queue
             </h2>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-muted">
               {snapshot.alertQueue.length} open cases
             </span>
           </div>
-          <div className="mt-4 divide-y divide-slate-800/60 text-sm">
+          <div className="mt-4 divide-y divide-border text-sm">
             {snapshot.alertQueue.map((alert) => (
               <div
                 key={alert.id}
                 className="grid gap-2 py-4 sm:grid-cols-[1.4fr,1fr,0.6fr]"
               >
                 <div>
-                  <p className="font-semibold text-slate-100">{alert.summary}</p>
-                  <p className="text-xs text-slate-500">
+                  <p className="font-semibold text-foreground">{alert.summary}</p>
+                  <p className="text-xs text-muted">
                     Queue: {alert.queue.toUpperCase()}
                   </p>
                 </div>
-                <div className="space-y-1 text-xs text-slate-400">
+                <div className="space-y-1 text-xs text-muted">
                   <p>
-                    Customer: <span className="text-slate-200">{alert.customerId}</span>
+                    Customer: <span className="text-foreground">{alert.customerId}</span>
                   </p>
                   <p className="flex items-center gap-2">
                     Status: <StatusBadge status={alert.status} />
                   </p>
                 </div>
-                <div className="text-xs text-right text-slate-500">
+                <div className="text-xs text-right text-muted">
                   {new Date(alert.createdAt).toLocaleString("en-US", {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -202,8 +202,8 @@ export default async function DashboardOverviewPage() {
             ))}
           </div>
         </div>
-        <div className="rounded-3xl border border-slate-800/60 bg-slate-900/60 p-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-400">
+        <div className="rounded-3xl border border-border bg-card p-6">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">
             Recent Transactions
           </h2>
           <ul className="mt-4 space-y-3 text-sm">
@@ -212,23 +212,23 @@ export default async function DashboardOverviewPage() {
               return (
                 <li
                   key={transaction.id}
-                  className="flex flex-col gap-1 rounded-2xl border border-slate-800/60 bg-slate-900/70 px-4 py-3"
+                  className="flex flex-col gap-1 rounded-2xl border border-border bg-surface px-4 py-3"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
+                    <span className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
                       {transaction.reference}
                     </span>
                     <StatusBadge status={transaction.screening.status} />
                   </div>
-                  <div className="flex items-center justify-between text-slate-200">
+                  <div className="flex items-center justify-between text-foreground">
                     <span className="text-base font-semibold">
                       {formatter.format(transaction.amount)}
                     </span>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-muted">
                       {transaction.counterparty} · {transaction.counterpartyCountry}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-xs text-slate-500">
+                  <div className="flex items-center justify-between text-xs text-muted">
                     <span>
                       Rules:{" "}
                       {transaction.screening.triggeredRules.length > 0

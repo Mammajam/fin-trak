@@ -36,18 +36,18 @@ export default function TermsPage() {
         description="These high-level terms govern use of Fin-Trak offerings. Seek legal review before production deployment."
       />
 
-      <section className="space-y-6 rounded-3xl border border-slate-800/60 bg-slate-950/60 px-8 py-10 text-sm leading-6 text-slate-300">
+      <section className="space-y-6 rounded-3xl border border-border bg-card px-8 py-10 text-sm leading-6 text-foreground/80">
         {clauses.map((clause) => (
           <div key={clause.title} className="space-y-2">
-            <h2 className="text-base font-semibold text-slate-100">{clause.title}</h2>
+            <h2 className="text-base font-semibold text-foreground">{clause.title}</h2>
             <p>{clause.body}</p>
           </div>
         ))}
       </section>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-muted">
         Questions? Contact{" "}
-        <a className="text-emerald-200 hover:underline" href="mailto:legal@fin-trak.io">
+        <a className="text-accent hover:underline" href="mailto:legal@fin-trak.io">
           legal@fin-trak.io
         </a>
         .

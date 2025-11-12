@@ -54,14 +54,14 @@ export default function DocsHomePage() {
         title="Build compliant identity and transaction workflows fast."
         description="Reference guides for engineering and compliance teams launching Fin-Trak across onboarding, screening, monitoring, and reporting surfaces."
       >
-        <ul className="flex flex-wrap gap-4 text-xs text-slate-200">
-          <li className="rounded-full border border-slate-700/60 px-4 py-2">
+        <ul className="flex flex-wrap gap-4 text-xs text-foreground/80">
+          <li className="rounded-full border border-border px-4 py-2">
             Versioned API contracts
           </li>
-          <li className="rounded-full border border-slate-700/60 px-4 py-2">
+          <li className="rounded-full border border-border px-4 py-2">
             Compliance-first workflows
           </li>
-          <li className="rounded-full border border-slate-700/60 px-4 py-2">
+          <li className="rounded-full border border-border px-4 py-2">
             Sandbox + production guidance
           </li>
         </ul>

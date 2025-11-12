@@ -16,7 +16,7 @@ const riskTone: Record<RiskLevel, string> = {
 };
 
 const kycTone: Record<KycStatus, string> = {
-  pending: "bg-slate-700/40 text-slate-200",
+  pending: "bg-surface text-foreground/70",
   in_review: "bg-amber-500/20 text-amber-100",
   approved: "bg-emerald-500/20 text-emerald-100",
   rejected: "bg-rose-500/30 text-rose-100",

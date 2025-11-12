@@ -35,15 +35,15 @@ export function SidebarNav({ items }: SidebarNavProps) {
             className={[
               "flex flex-col rounded-2xl border px-4 py-3 transition",
               active
-                ? "border-emerald-400/80 bg-emerald-500/10 text-emerald-100 shadow-[0_10px_30px_-20px_rgba(16,185,129,0.8)]"
-                : "border-transparent bg-slate-900/40 text-slate-300 hover:border-emerald-400/40 hover:bg-slate-900/60 hover:text-slate-100",
+                ? "border-accent/80 bg-accent/10 text-accent shadow-[0_10px_30px_-20px_rgba(5,150,105,0.4)] [data-theme='dark']:shadow-[0_10px_30px_-20px_rgba(16,185,129,0.8)]"
+                : "border-transparent bg-surface text-foreground/80 hover:border-accent/40 hover:bg-surface-hover hover:text-foreground",
             ].join(" ")}
           >
             <span className="text-sm font-semibold uppercase tracking-[0.18em]">
               {item.label}
             </span>
             {item.description ? (
-              <span className="mt-1 text-xs text-slate-400">{item.description}</span>
+              <span className="mt-1 text-xs text-muted">{item.description}</span>
             ) : null}
           </Link>
         );

@@ -20,7 +20,7 @@ const statusStyles: Partial<Record<StatusValue, string>> = {
   approved: "bg-emerald-500/20 text-emerald-100",
   clear: "bg-emerald-500/20 text-emerald-100",
   monitoring: "bg-sky-500/20 text-sky-100",
-  pending: "bg-slate-700/40 text-slate-200",
+  pending: "bg-surface text-foreground/70",
   in_review: "bg-amber-500/20 text-amber-100",
   requires_review: "bg-amber-500/20 text-amber-100",
   escalated: "bg-rose-500/20 text-rose-100",
@@ -28,7 +28,7 @@ const statusStyles: Partial<Record<StatusValue, string>> = {
   rejected: "bg-rose-600/25 text-rose-100",
 };
 
-const fallbackStyle = "bg-slate-700/40 text-slate-200";
+const fallbackStyle = "bg-surface text-foreground/70";
 
 const toLabel = (value: string) =>
   value.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());

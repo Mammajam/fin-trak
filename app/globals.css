@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+[data-theme="dark"] {
   color-scheme: dark;
   --background: #020617;
   --foreground: #e2e8f0;
@@ -8,23 +9,34 @@
   --border: rgba(148, 163, 184, 0.18);
   --card: rgba(15, 23, 42, 0.72);
   --accent: #34d399;
+  --surface: #0f172a;
+  --surface-hover: #1e293b;
+  --scrollbar-thumb: rgba(148, 163, 184, 0.25);
+  --scrollbar-thumb-hover: rgba(148, 163, 184, 0.45);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color-scheme: light;
-    --background: #f8fafc;
-    --foreground: #0f172a;
-    --muted: #475569;
-    --border: rgba(15, 23, 42, 0.12);
-    --card: rgba(255, 255, 255, 0.86);
-    --accent: #059669;
-  }
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, 0.16);
+  --card: #ffffff;
+  --accent: #059669;
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --scrollbar-thumb: rgba(15, 23, 42, 0.2);
+  --scrollbar-thumb-hover: rgba(15, 23, 42, 0.35);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
@@ -59,10 +71,10 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: var(--scrollbar-thumb);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.45);
+  background: var(--scrollbar-thumb-hover);
 }
